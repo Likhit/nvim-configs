@@ -1,0 +1,1 @@
+-- Keybindings: leader key, navigation, editing shortcuts

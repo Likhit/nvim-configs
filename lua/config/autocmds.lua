@@ -1,0 +1,1 @@
+-- Autocommands: filetype settings, UI behavior

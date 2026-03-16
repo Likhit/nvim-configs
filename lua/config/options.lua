@@ -1,0 +1,1 @@
+-- Vim options: UI, search, indentation, editing behavior

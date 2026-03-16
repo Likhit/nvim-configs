@@ -1,0 +1,1 @@
+-- Language registry: LSP servers, TreeSitter grammars, filetype settings
