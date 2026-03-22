@@ -47,7 +47,7 @@ opt.autoindent = true
 opt.smartindent = true
 
 -- Yank/paste uses system clipboard
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 
 -- Persist undo history across sessions
 opt.undofile = true
