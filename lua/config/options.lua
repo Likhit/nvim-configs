@@ -46,8 +46,23 @@ opt.tabstop = 2
 opt.autoindent = true
 opt.smartindent = true
 
--- Yank/paste uses system clipboard
--- opt.clipboard = "unnamedplus"
+-- Clipboard via OSC 52 (works through SSH, microVMs, tmux)
+-- Requires terminal support (kitty, alacritty, wezterm, ghostty, etc.)
+-- Kitty: set `clipboard_control write-clipboard write-primary read-clipboard read-primary` in kitty.conf
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
+
+-- Route all yank/paste through the clipboard provider above
+opt.clipboard = "unnamedplus"
 
 -- Persist undo history across sessions
 opt.undofile = true
