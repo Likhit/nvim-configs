@@ -1,4 +1,8 @@
 pack/
+.direnv/
+.claude/
+
+flake.lock
 
 # AI files
 Goal.md
