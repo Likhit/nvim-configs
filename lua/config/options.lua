@@ -70,6 +70,9 @@ opt.undofile = true
 -- No swap files (git handles recovery)
 opt.swapfile = false
 
+-- Auto-reload files changed externally (pairs with checktime autocmd)
+opt.autoread = true
+
 -- Splits open below and to the right
 opt.splitbelow = true
 opt.splitright = true

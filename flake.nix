@@ -5,24 +5,42 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
       homeManagerModules.default = import ./nix/module.nix { inherit self; };
 
-      devShells = forEachSystem (system:
+      packages = forEachSystem (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          plugins = import ./nix/plugins.nix { inherit pkgs; };
+        in
+        {
+          nvim-plugins = pkgs.linkFarm "nvim-plugins" (map (plugin: {
+            name = "start/${plugin.pname or plugin.name}";
+            path = plugin;
+          }) plugins);
+        }
+      );
+
+      devShells = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          lspServers = import ./nix/lsp-servers.nix { inherit pkgs; };
         in
         {
           default = pkgs.mkShell {
-            shellHook = ''
-              export NVIM_APPNAME="nvim-dev"
-              ln -sfn "$(pwd)" "$HOME/.config/nvim-dev"
-            '';
+            packages = lspServers;
+            NVIM_PLUGINS = self.packages.${system}.nvim-plugins;
           };
         }
       );
