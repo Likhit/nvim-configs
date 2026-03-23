@@ -40,6 +40,7 @@
         {
           default = pkgs.mkShell {
             packages = lspServers;
+            NVIM_PLUGINS = self.packages.${system}.nvim-plugins;
           };
         }
       );
