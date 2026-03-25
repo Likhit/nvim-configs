@@ -9,8 +9,8 @@ opt.relativenumber = true
 -- Highlight the line the cursor is on
 opt.cursorline = true
 
--- Sign column off for now (revisit when adding gitsigns/diagnostics)
-opt.signcolumn = "no"
+-- Always show sign column (used by diagnostics, gitsigns)
+opt.signcolumn = "yes"
 
 -- Keep 8 lines visible above/below and left/right of cursor
 opt.scrolloff = 8
