@@ -52,6 +52,16 @@ autocmd("BufWritePre", {
   command = [[%s/\s\+$//e]],
 })
 
+-- Python: 4-space indent (PEP 8)
+autocmd("FileType", {
+  group = augroup("ft-python", { clear = true }),
+  pattern = "python",
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+  end,
+})
+
 -- Use tabs instead of spaces for plain text and undetected filetypes
 autocmd("FileType", {
   group = augroup("text-tabs", { clear = true }),
