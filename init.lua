@@ -4,6 +4,7 @@ require("config.autocmds")
 require("plugins.treesitter")
 require("custom.statusline")
 require("custom.autopairs")
+require("plugins.fzf")
 require("plugins.cmp")
 require("plugins.lsp")
 

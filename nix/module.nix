@@ -26,7 +26,10 @@ in
       value = { source = "${plugin}"; };
     }) plugins);
 
-    # Install LSP servers onto PATH
-    home.packages = lspServers;
+    # Install LSP servers and CLI tools onto PATH
+    home.packages = lspServers ++ (with pkgs; [
+      fzf  # fuzzy finder (used by fzf-lua)
+      fd   # file finder (used by fzf-lua)
+    ]);
   };
 }
