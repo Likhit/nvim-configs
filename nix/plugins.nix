@@ -32,5 +32,7 @@ with pkgs.vimPlugins; [
   # nvim-treesitter-textobjects
 
   # -- Completion (Phase 6) --
+  blink-cmp
+
   # -- Git signs (Phase 7) --
 ]

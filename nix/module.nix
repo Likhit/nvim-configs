@@ -18,6 +18,7 @@ in
     # Symlink Lua config into ~/.config/nvim/
     xdg.configFile."nvim/init.lua".source = "${self}/init.lua";
     xdg.configFile."nvim/lua".source = "${self}/lua";
+    xdg.configFile."nvim/lsp".source = "${self}/lsp";
 
     # Install plugins into the Neovim pack path
     xdg.dataFile = builtins.listToAttrs (map (plugin: {
