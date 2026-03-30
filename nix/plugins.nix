@@ -34,5 +34,8 @@ with pkgs.vimPlugins; [
   # -- Completion (Phase 6) --
   blink-cmp
 
+  # -- Fuzzy finder (Phase 10) --
+  fzf-lua
+
   # -- Git signs (Phase 7) --
 ]

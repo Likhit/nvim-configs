@@ -39,7 +39,10 @@
         in
         {
           default = pkgs.mkShell {
-            packages = lspServers;
+            packages = lspServers ++ (with pkgs; [
+              fzf  # fuzzy finder (used by fzf-lua)
+              fd   # file finder (used by fzf-lua)
+            ]);
             NVIM_PLUGINS = self.packages.${system}.nvim-plugins;
           };
         }
