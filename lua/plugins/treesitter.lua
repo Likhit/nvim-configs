@@ -13,6 +13,6 @@ vim.api.nvim_create_autocmd("FileType", {
       return
     end
 
-    vim.treesitter.start(ev.buf, lang)
+    pcall(vim.treesitter.start, ev.buf, lang)
   end,
 })

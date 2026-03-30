@@ -4,6 +4,11 @@
 -- Server configs live in lsp/<server>.lua at the config root.
 -- LSP server binaries are installed via Nix (nix/lsp-servers.nix).
 
+-- Advertise blink.cmp capabilities to all LSP servers
+vim.lsp.config("*", {
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
+})
+
 -- Enable all configured LSP servers
 vim.lsp.enable({
   "marksman",
