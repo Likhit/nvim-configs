@@ -58,6 +58,35 @@ map("t", "<C-j>", "<cmd>wincmd j<CR>")
 map("t", "<C-k>", "<cmd>wincmd k<CR>")
 map("t", "<C-l>", "<cmd>wincmd l<CR>")
 
+-- Toggle bottom terminal with Ctrl+`
+local term_buf = nil
+local function toggle_terminal()
+  -- If terminal window is visible, hide it
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if vim.api.nvim_win_get_buf(win) == term_buf then
+        vim.api.nvim_win_close(win, true)
+        return
+      end
+    end
+  end
+
+  -- Open a bottom split
+  vim.cmd("botright 20split")
+
+  -- Reuse existing terminal buffer or create a new one
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    vim.api.nvim_win_set_buf(0, term_buf)
+  else
+    vim.cmd("terminal")
+    term_buf = vim.api.nvim_get_current_buf()
+  end
+
+  vim.cmd("startinsert")
+end
+
+map({ "n", "t" }, "<C-`>", toggle_terminal)
+
 -- Clear search highlight with Esc
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
