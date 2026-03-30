@@ -96,8 +96,8 @@ opt.mouse = "a"
 -- Characters for invisible whitespace (visible with :set list)
 opt.listchars = { tab = ">>", trail = ".", nbsp = "~" }
 
--- Clean up empty line markers (no ~ after buffer end)
-opt.fillchars = { eob = " " }
+-- Clean up empty line markers and use visible horizontal split separator
+opt.fillchars = { eob = " ", horiz = "━", horizup = "┻", horizdown = "┳", vert = "┃", vertleft = "┫", vertright = "┣", verthoriz = "╋" }
 
 -- Wrapped lines keep their indent level
 opt.breakindent = true

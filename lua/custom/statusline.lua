@@ -138,6 +138,7 @@ local function set_highlights()
   hi(0, "StatusMode_Replace", { fg = "#1a1b26", bg = "#f7768e", bold = true })
   hi(0, "StatusMode_Terminal",{ fg = "#1a1b26", bg = "#7dcfff", bold = true })
   hi(0, "StatusGit",          { fg = "#e0af68", bold = true })
+  hi(0, "WinSeparator",       { fg = "#565f89" })
 end
 
 set_highlights()

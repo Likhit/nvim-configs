@@ -8,4 +8,6 @@ require("plugins.fzf")
 require("plugins.cmp")
 require("plugins.lsp")
 
+require("custom.welcome_screen")
+
 vim.cmd.colorscheme("kanagawa")
