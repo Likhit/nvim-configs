@@ -3,6 +3,7 @@ require("config.keymaps")
 require("config.autocmds")
 require("plugins.treesitter")
 require("custom.statusline")
+require("custom.autopairs")
 require("plugins.cmp")
 require("plugins.lsp")
 
