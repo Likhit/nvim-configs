@@ -3,7 +3,3 @@ pack/
 .claude/
 
 flake.lock
-
-# AI files
-Goal.md
-Plan.md
