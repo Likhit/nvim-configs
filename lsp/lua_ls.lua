@@ -7,8 +7,10 @@ return {
         version = "LuaJIT",
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        -- Only include the Neovim runtime (for vim.* API awareness).
+        -- nvim_get_runtime_file("", true) includes ALL plugins on the runtimepath
+        -- (colorschemes, treesitter grammars, etc.) which makes lua_ls take minutes to index.
+        library = { vim.env.VIMRUNTIME },
         checkThirdParty = false,
       },
       diagnostics = {
