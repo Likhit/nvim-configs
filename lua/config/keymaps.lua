@@ -7,56 +7,56 @@ vim.g.maplocalleader = " "
 local map = vim.keymap.set
 
 -- Window navigation: Ctrl+h/j/k/l instead of Ctrl+w then h/j/k/l
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
+map("n", "<C-h>", "<C-w>h", { desc = "Move to left window #navigation #window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Move to below window #navigation #window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Move to above window #navigation #window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Move to right window #navigation #window" })
 
 -- Window resizing: Ctrl+arrows
-map("n", "<C-Up>", "<cmd>resize +2<CR>")
-map("n", "<C-Down>", "<cmd>resize -2<CR>")
-map("n", "<C-Left>", "<cmd>vertical resize -2<CR>")
-map("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
+map("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height #window #resize" })
+map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease window height #window #resize" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width #window #resize" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width #window #resize" })
 
 -- Equalize splits: Ctrl+=
-map("n", "<C-=>", "<C-w>=")
+map("n", "<C-=>", "<C-w>=", { desc = "Equalize window sizes #window #resize" })
 
 -- Stay in visual mode after indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("v", "<", "<gv", { desc = "Indent left and reselect #editing #indent" })
+map("v", ">", ">gv", { desc = "Indent right and reselect #editing #indent" })
 
 -- Paste over selection without yanking replaced text
-map("v", "p", '"_dP')
+map("v", "p", '"_dP', { desc = "Paste without yanking replaced text #editing #clipboard" })
 
 -- Join lines without moving cursor
-map("n", "J", "mzJ`z")
+map("n", "J", "mzJ`z", { desc = "Join lines (cursor stays) #editing" })
 
 -- Undo break points in insert mode at punctuation and newlines
-map("i", ",", ",<C-g>u")
-map("i", ".", ".<C-g>u")
-map("i", ";", ";<C-g>u")
-map("i", "<CR>", "<CR><C-g>u")
+map("i", ",", ",<C-g>u", { desc = "Undo break point at comma #editing #undo" })
+map("i", ".", ".<C-g>u", { desc = "Undo break point at period #editing #undo" })
+map("i", ";", ";<C-g>u", { desc = "Undo break point at semicolon #editing #undo" })
+map("i", "<CR>", "<CR><C-g>u", { desc = "Undo break point at newline #editing #undo" })
 
 -- Half-page scroll + center cursor
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
+map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down half page (centered) #navigation #scroll" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up half page (centered) #navigation #scroll" })
 
 -- Search match + center + open folds
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+map("n", "n", "nzzzv", { desc = "Next search match (centered) #navigation #search" })
+map("n", "N", "Nzzzv", { desc = "Previous search match (centered) #navigation #search" })
 
 -- Smart j/k: move by screen line when no count, logical line with count
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Down (screen line when no count) #navigation #motion" })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Up (screen line when no count) #navigation #motion" })
 
 -- Terminal: double Esc to exit terminal mode
-map("t", "<Esc><Esc>", "<C-\\><C-n>")
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode #terminal" })
 
 -- Terminal: window navigation with Ctrl+h/j/k/l
-map("t", "<C-h>", "<cmd>wincmd h<CR>")
-map("t", "<C-j>", "<cmd>wincmd j<CR>")
-map("t", "<C-k>", "<cmd>wincmd k<CR>")
-map("t", "<C-l>", "<cmd>wincmd l<CR>")
+map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Move to left window #terminal #navigation #window" })
+map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Move to below window #terminal #navigation #window" })
+map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Move to above window #terminal #navigation #window" })
+map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Move to right window #terminal #navigation #window" })
 
 -- Toggle bottom terminal with Ctrl+`
 local term_buf = nil
@@ -85,10 +85,10 @@ local function toggle_terminal()
   vim.cmd("startinsert")
 end
 
-map({ "n", "t" }, "<C-`>", toggle_terminal)
+map({ "n", "t" }, "<C-`>", toggle_terminal, { desc = "Toggle bottom terminal #terminal" })
 
 -- Clear search highlight with Esc
-map("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight #search" })
 
 -- Save with Ctrl+s from any mode
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<CR><Esc>")
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<CR><Esc>", { desc = "Save file #file" })
