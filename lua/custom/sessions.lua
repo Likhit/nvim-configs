@@ -56,6 +56,16 @@ function M.restore(project_path)
   if vim.fn.filereadable(file) == 0 then return false end
   vim.cmd("silent! %bwipeout!")
   vim.cmd("source " .. vim.fn.fnameescape(file))
+  -- The welcome screen disables line numbers on its window. That window
+  -- survives into the restored session. Schedule the reset so it runs after
+  -- all session autocmds (SessionLoadPost, BufWinEnter, etc.) have settled.
+  vim.schedule(function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      vim.wo[win].number = true
+      vim.wo[win].relativenumber = true
+      vim.wo[win].signcolumn = "yes"
+    end
+  end)
   active_session = project_path
   return true
 end

@@ -127,18 +127,65 @@ function _G.statusline()
   return table.concat(parts)
 end
 
+-- Winbar renderer ------------------------------------------------------------
+
+local winbar_skip = { terminal = true, nofile = true, quickfix = true, help = true, prompt = true }
+
+function _G.winbar()
+  local bt = vim.bo.buftype
+  if winbar_skip[bt] then return "" end
+
+  local icon = ft_icons[vim.bo.filetype]
+  local name = vim.fn.expand("%:.")
+  if name == "" then return "" end
+
+  local is_active = vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin)
+
+  local label = {}
+  if icon then
+    label[#label + 1] = hl(is_active and "WinBarIcon" or "WinBarIconNC", icon)
+    label[#label + 1] = " "
+  end
+  label[#label + 1] = hl(is_active and "WinBar" or "WinBarNC", name)
+  if vim.bo.modified then
+    label[#label + 1] = hl("WinBarModified", " [+]")
+  end
+
+  return "%=" .. table.concat(label) .. "%="
+end
+
+vim.o.winbar = "%{%v:lua.winbar()%}"
+
 -- Highlights -----------------------------------------------------------------
 
 local function set_highlights()
   local hi = vim.api.nvim_set_hl
-  hi(0, "StatusMode_Normal",  { fg = "#1a1b26", bg = "#7aa2f7", bold = true })
-  hi(0, "StatusMode_Insert",  { fg = "#1a1b26", bg = "#9ece6a", bold = true })
-  hi(0, "StatusMode_Visual",  { fg = "#1a1b26", bg = "#bb9af7", bold = true })
-  hi(0, "StatusMode_Command", { fg = "#1a1b26", bg = "#e0af68", bold = true })
-  hi(0, "StatusMode_Replace", { fg = "#1a1b26", bg = "#f7768e", bold = true })
-  hi(0, "StatusMode_Terminal",{ fg = "#1a1b26", bg = "#7dcfff", bold = true })
-  hi(0, "StatusGit",          { fg = "#e0af68", bold = true })
-  hi(0, "WinSeparator",       { fg = "#565f89" })
+
+  -- Mode highlights: reverse the linked group so text is readable on colored bg
+  hi(0, "StatusMode_Normal",  { link = "Function",    bold = true, reverse = true })
+  hi(0, "StatusMode_Insert",  { link = "String",      bold = true, reverse = true })
+  hi(0, "StatusMode_Visual",  { link = "Keyword",     bold = true, reverse = true })
+  hi(0, "StatusMode_Command", { link = "Type",        bold = true, reverse = true })
+  hi(0, "StatusMode_Replace", { link = "Error",       bold = true, reverse = true })
+  hi(0, "StatusMode_Terminal",{ link = "Special",     bold = true, reverse = true })
+  hi(0, "StatusGit",          { link = "Type",        bold = true })
+
+  -- Winbar: use the StatusLine bg so it looks like a darker bar
+  local stl = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false })
+  local bar_bg = stl.bg
+
+  local function fg_of(group)
+    local h = vim.api.nvim_get_hl(0, { name = group, link = false })
+    return h.fg
+  end
+
+  hi(0, "WinBar",             { fg = fg_of("Normal"),   bg = bar_bg, bold = true })
+  hi(0, "WinBarNC",           { fg = fg_of("NonText"),  bg = bar_bg })
+  hi(0, "WinBarIcon",         { fg = fg_of("Function"), bg = bar_bg, bold = true })
+  hi(0, "WinBarIconNC",       { fg = fg_of("NonText"),  bg = bar_bg })
+  hi(0, "WinBarModified",     { fg = fg_of("Type"),     bg = bar_bg })
+
+  hi(0, "WinSeparator",       { link = "NonText" })
 end
 
 set_highlights()
