@@ -115,9 +115,19 @@ local function open_welcome_screen()
     return nil
   end
 
+  -- Reset window options that were overridden for the welcome screen
+  -- back to global defaults, so session save/restore doesn't persist them.
+  local function reset_win_opts()
+    vim.wo[win].number = vim.go.number
+    vim.wo[win].relativenumber = vim.go.relativenumber
+    vim.wo[win].signcolumn = vim.go.signcolumn
+    vim.wo[win].cursorline = vim.go.cursorline
+  end
+
   local function open_session()
     local entry = selected_session()
     if not entry then return end
+    reset_win_opts()
     -- restore() wipes all buffers (including this one) then sources the session
     sessions.restore(entry.path)
   end
@@ -127,6 +137,7 @@ local function open_welcome_screen()
     vim.ui.input({ prompt = "Project directory: ", default = cwd }, function(path)
       if not path or path == "" then return end
       path = vim.fn.fnamemodify(path, ":p"):gsub("/$", "")
+      reset_win_opts()
       -- Wipe welcome buffer, cd, and save an initial session
       vim.api.nvim_buf_delete(buf, { force = true })
       vim.cmd.cd(path)

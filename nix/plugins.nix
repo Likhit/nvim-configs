@@ -38,4 +38,5 @@ with pkgs.vimPlugins; [
   fzf-lua
 
   # -- Git signs (Phase 7) --
+  gitsigns-nvim
 ]

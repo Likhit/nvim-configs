@@ -5,6 +5,7 @@ local opt = vim.opt
 -- Line numbers: absolute for current line, relative for all others
 opt.number = true
 opt.relativenumber = true
+opt.numberwidth = 2
 
 -- Highlight the line the cursor is on
 opt.cursorline = true
