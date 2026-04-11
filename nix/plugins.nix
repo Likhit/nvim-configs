@@ -27,9 +27,14 @@ with pkgs.vimPlugins; [
   nvim-treesitter.grammarPlugins.json
   nvim-treesitter.grammarPlugins.yaml
   nvim-treesitter.grammarPlugins.bash
+  nvim-treesitter.grammarPlugins.typst
+  nvim-treesitter.grammarPlugins.latex
 
   # -- TreeSitter text objects (disabled until learned from tutorial) --
   # nvim-treesitter-textobjects
+
+  # -- Markdown/LaTeX/Typst rendering --
+  markview-nvim
 
   # -- Completion (Phase 6) --
   blink-cmp

@@ -6,6 +6,7 @@ require("plugins.gitsigns")
 require("custom.statusline")
 require("custom.autopairs")
 require("plugins.fzf")
+require("plugins.markview")
 require("plugins.cmp")
 require("plugins.lsp")
 
