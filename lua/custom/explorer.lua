@@ -1,1 +1,0 @@
--- File explorer (TBD: netrw config or reimplementation)
