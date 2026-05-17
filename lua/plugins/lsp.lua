@@ -19,6 +19,7 @@ vim.lsp.enable({
   "cssls",
   "nil_ls",
   "lua_ls",
+  "dartls",
 })
 
 -- Diagnostics display
