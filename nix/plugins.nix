@@ -29,6 +29,7 @@ with pkgs.vimPlugins; [
   nvim-treesitter.grammarPlugins.bash
   nvim-treesitter.grammarPlugins.typst
   nvim-treesitter.grammarPlugins.latex
+  nvim-treesitter.grammarPlugins.dart
 
   # -- TreeSitter text objects (disabled until learned from tutorial) --
   # nvim-treesitter-textobjects

@@ -9,4 +9,5 @@ with pkgs; [
   vscode-langservers-extracted  # HTML, CSS, JSON
   nil                           # Nix
   lua-language-server           # Lua
+  dart                          # Dart (bundles `dart language-server`)
 ]

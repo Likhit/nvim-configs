@@ -6,12 +6,6 @@ vim.g.maplocalleader = " "
 
 local map = vim.keymap.set
 
--- Window navigation: Ctrl+h/j/k/l instead of Ctrl+w then h/j/k/l
-map("n", "<C-h>", "<C-w>h", { desc = "Move to left window #navigation #window" })
-map("n", "<C-j>", "<C-w>j", { desc = "Move to below window #navigation #window" })
-map("n", "<C-k>", "<C-w>k", { desc = "Move to above window #navigation #window" })
-map("n", "<C-l>", "<C-w>l", { desc = "Move to right window #navigation #window" })
-
 -- Window resizing: Ctrl+arrows
 map("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height #window #resize" })
 map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease window height #window #resize" })
@@ -51,12 +45,6 @@ map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Up (s
 
 -- Terminal: double Esc to exit terminal mode
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode #terminal" })
-
--- Terminal: window navigation with Ctrl+h/j/k/l
-map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Move to left window #terminal #navigation #window" })
-map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Move to below window #terminal #navigation #window" })
-map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Move to above window #terminal #navigation #window" })
-map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Move to right window #terminal #navigation #window" })
 
 -- Toggle bottom terminal with Ctrl+`
 local term_buf = nil
